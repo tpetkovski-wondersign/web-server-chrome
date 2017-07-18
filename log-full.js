@@ -10,6 +10,10 @@
     window.LOGLISTENERS = []
     function wrappedlog(method) {
         var wrapped = function() {
+            if (!WSC.DEBUG && method === 'log') {
+              return;
+            }
+
             var args = Array.prototype.slice.call(arguments)
             ORIGINALCONSOLE[method].apply(console,args)
             if (method == 'error') {
